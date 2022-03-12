@@ -2,6 +2,15 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
+//////////////////////////////////
+//constant macros
+//MUST REMAIN DEFINED AS THEY CURRENTLY ARE
+#define ID_LENGTH 0
+#define COLOR_MAP_TYPE 0
+#define DATA_TYPE_CODE 2
+#define COLOR_MAP_LENGTH 0
+#define BPP 24
+//////////////////////////////////
 using namespace std;
 void image::addpixel(pixel& pix)
 {
@@ -100,17 +109,17 @@ void image::read_file(std::string file_name, image& file)
 	
 	//display each pixels color info
 	/*
-	for (unsigned int i = 0; i < image_data.getsize(); i++)
+	for (unsigned int i = 0; i < file.getsize(); i++)
 	{
 		std::cout << "pixel number: " << i << std::endl;
-		std::cout << "Blue value: " <<(int) image_data.get_pixel(i).get_blue() << std::endl;
-		std::cout << "Green value: " <<(int) image_data.get_pixel(i).get_green() << std::endl;
-		std::cout << "Red value: " << (int) image_data.get_pixel(i).get_red() << std::endl;
+		std::cout << "Blue value: " <<(int) file.get_pixel(i).get_blue() << std::endl;
+		std::cout << "Green value: " <<(int) file.get_pixel(i).get_green() << std::endl;
+		std::cout << "Red value: " << (int) file.get_pixel(i).get_red() << std::endl;
 	}
 	*/
 }
 
-void image::write_with_name(std::string name, image& header_f)
+void image::write_with_name(std::string name, image& image_f)
 {
 	enum bytes { CHAR = 1, SHORT = 2 };
 	std::ofstream file_write(name, std::ios_base::binary);
@@ -133,39 +142,39 @@ void image::write_with_name(std::string name, image& header_f)
 	//image header_f;
 	//image pixels;
 	
-	file_write.write(&header_f.id_length, CHAR);
+	file_write.write(&image_f.id_length, CHAR);
 
-	file_write.write(&header_f.color_map_type, CHAR);
+	file_write.write(&image_f.color_map_type, CHAR);
 
-	file_write.write(&header_f.image_type, CHAR);
+	file_write.write(&image_f.image_type, CHAR);
 
-	file_write.write((char*)&header_f.color_map_origin, SHORT);
+	file_write.write((char*)&image_f.color_map_origin, SHORT);
 
-	file_write.write((char*)&header_f.color_map_length, SHORT);
+	file_write.write((char*)&image_f.color_map_length, SHORT);
 
-	file_write.write(&header_f.color_map_depth, CHAR);
+	file_write.write(&image_f.color_map_depth, CHAR);
 
-	file_write.write((char*)&header_f.x_origin, SHORT);
+	file_write.write((char*)&image_f.x_origin, SHORT);
 
-	file_write.write((char*)&header_f.y_origin, SHORT);
+	file_write.write((char*)&image_f.y_origin, SHORT);
 
-	file_write.write((char*)&header_f.width, SHORT);
+	file_write.write((char*)&image_f.width, SHORT);
 
-	file_write.write((char*)&header_f.height, SHORT);
+	file_write.write((char*)&image_f.height, SHORT);
 
-	file_write.write(&header_f.pixel_depth, CHAR);
+	file_write.write(&image_f.pixel_depth, CHAR);
 
-	file_write.write(&header_f.image_descriptor, CHAR);
+	file_write.write(&image_f.image_descriptor, CHAR);
 
 	//write file data
 	
-	for (unsigned int i = 0; i < header_f.getsize(); i++)
+	for (unsigned int i = 0; i < image_f.getsize(); i++)
 	{
-		file_write.write((char*)&header_f.v_image.at(i).get_blue(), CHAR);
+		file_write.write((char*)&image_f.v_image.at(i).get_blue(), CHAR);
 
-		file_write.write((char*)&header_f.v_image.at(i).get_green(), CHAR);
+		file_write.write((char*)&image_f.v_image.at(i).get_green(), CHAR);
 
-		file_write.write((char*)&header_f.v_image.at(i).get_red(), CHAR);
+		file_write.write((char*)&image_f.v_image.at(i).get_red(), CHAR);
 	}
 	
 	
@@ -289,10 +298,10 @@ image image::create_new_header(string name, char id_length, char color_map_type,
 
  }
 
- header image::create_header(std::string name, char id_length, char color_map_type, char image_type, short color_map_origin, short color_map_length, char color_map_depth, short x_origin, short y_origin, short width, short height, char pixel_depth, char image_descriptor)
+ header image::create_header(char id_length, char color_map_type, char image_type, short color_map_origin, short color_map_length, char color_map_depth, short x_origin, short y_origin, short width, short height, char pixel_depth, char image_descriptor)
  {
 	 enum bytes { CHAR = 1, SHORT = 2 };
-	 std::ofstream file_write(name, std::ios_base::binary);
+	 //std::ofstream file_write(name, std::ios_base::binary);
 
 	 //write header file
 	 /*
@@ -314,30 +323,18 @@ image image::create_new_header(string name, char id_length, char color_map_type,
 
 	 header header_f;
 
-	 file_write.write(&header_f.id_length, CHAR);
-
-	 file_write.write(&header_f.color_map_type, CHAR);
-
-	 file_write.write(&header_f.image_type, CHAR);
-
-	 file_write.write((char*)&header_f.color_map_origin, SHORT);
-
-	 file_write.write((char*)&header_f.color_map_length, SHORT);
-
-	 file_write.write(&header_f.color_map_depth, CHAR);
-
-	 file_write.write((char*)&header_f.x_origin, SHORT);
-
-	 file_write.write((char*)&header_f.y_origin, SHORT);
-
-	 file_write.write((char*)&header_f.width, SHORT);
-
-	 file_write.write((char*)&header_f.height, SHORT);
-
-	 file_write.write(&header_f.pixel_depth, CHAR);
-
-	 file_write.write(&header_f.image_descriptor, CHAR);
-
+	 header_f.id_length = id_length;
+	 header_f.color_map_type = color_map_type;
+	 header_f.image_type = image_type;
+	 header_f.color_map_origin = color_map_origin;
+	 header_f.color_map_length = color_map_length;
+	 header_f.color_map_depth = color_map_depth;
+	 header_f.x_origin = x_origin;
+	 header_f.y_origin = y_origin;
+	 header_f.width = width;
+	 header_f.height = height;
+	 header_f.pixel_depth = pixel_depth;
+	 header_f.image_descriptor = image_descriptor;
 
 	 return header_f;
  }
@@ -375,7 +372,7 @@ image image::create_new_header(string name, char id_length, char color_map_type,
 	 image_f.pixel_depth = header_f.pixel_depth;
 	 image_f.image_descriptor = header_f.image_descriptor;
 
-	 for (unsigned int i = 0; i < (header_f.height)*(header_f.width); i++)
+	 for (unsigned int i = 0; i < (image_f.height)*(image_f.width); i++)
 	 {
 		 pixel_Data.set_blue(BLUE);
 		 pixel_Data.set_green(GREEN);

@@ -19,7 +19,7 @@ public:
 	//image create_new_header(std::string ,char, char,char,short,short,char,short,short,short,short,char,char);
 	void copy_to_file_create_new(std::string, image&, image&);
 	void copy_to_file(const image&, image&);
-	header create_header(std::string, char, char, char, short, short, char, short, short, short, short, char, char);
+	header create_header(char, char, char, short, short, char, short, short, short, short, char, char);
 
 	void create_blank_file(std::string,header&);
 	const std::vector<pixel> get_pixel_array() const;

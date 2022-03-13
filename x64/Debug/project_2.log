@@ -1,2 +1,12 @@
-﻿  project_2.cpp
+﻿  image.cpp
+C:\Users\steve\source\repos\project_2\src\image.cpp(29,29): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\steve\source\repos\project_2\src\image.cpp(33,23): warning C4267: 'return': conversion from 'size_t' to 'const unsigned int', possible loss of data
+C:\Users\steve\source\repos\project_2\src\image.cpp(99,29): warning C4018: '<': signed/unsigned mismatch
+C:\Users\steve\source\repos\project_2\src\image.cpp(375,30): warning C4018: '<': signed/unsigned mismatch
+  pixel.cpp
+  project_2.cpp
+C:\Users\steve\source\repos\project_2\src\project_2.cpp(57,10): warning C4101: 'test': unreferenced local variable
+C:\Users\steve\source\repos\project_2\src\project_2.cpp(49,10): warning C4101: 'test_files': unreferenced local variable
+  test.cpp
+  Generating Code...
   project_2.vcxproj -> C:\Users\steve\source\repos\project_2\x64\Debug\project_2.exe

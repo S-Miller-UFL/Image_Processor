@@ -181,8 +181,8 @@ void image::write_with_name(std::string name, image& image_f)
 	
 }
 
-void image::set_color(const unsigned char blue,
-	const unsigned char green, const unsigned char red)
+void image::set_color(const unsigned char red,
+	const unsigned char green, const unsigned char blue)
 {
 	for (unsigned int i = 0; i < this->getsize(); i++)
 	{

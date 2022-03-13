@@ -43,4 +43,5 @@ private:
 	char image_descriptor;
 	std::vector<pixel> v_image;
 	unsigned int size;
+
 };

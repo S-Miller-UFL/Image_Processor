@@ -1,5 +1,6 @@
 #pragma once
 #include "image.h"
+#include "test.h"
 #include <string>
 struct IO_READ
 {
@@ -46,4 +47,23 @@ struct IO_HEADER
 private:
 	image i;
 	header h;
+};
+
+struct IO_TEST
+{
+	void compare(const image& h0, const image& h1)
+	{
+		f = t.test_compare_images(h0,h1);
+		if (f == false)
+		{
+			std::cout << "false!" << std::endl;
+		}
+		else if(f == true)
+		{
+			std::cout << "true!" << std::endl;
+		}
+	}
+private:
+	test t;
+	bool f;
 };

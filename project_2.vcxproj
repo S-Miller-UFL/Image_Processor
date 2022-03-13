@@ -139,12 +139,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\color.cpp" />
     <ClCompile Include="src\image.cpp" />
     <ClCompile Include="src\pixel.cpp" />
     <ClCompile Include="src\project_2.cpp" />
     <ClCompile Include="src\test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\color.h" />
     <ClInclude Include="src\header.h" />
     <ClInclude Include="src\image.h" />
     <ClInclude Include="src\pixel.h" />

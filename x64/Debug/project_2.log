@@ -1,12 +1,22 @@
 ﻿  image.cpp
-C:\Users\steve\source\repos\project_2\src\image.cpp(29,29): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
-C:\Users\steve\source\repos\project_2\src\image.cpp(33,23): warning C4267: 'return': conversion from 'size_t' to 'const unsigned int', possible loss of data
-C:\Users\steve\source\repos\project_2\src\image.cpp(99,29): warning C4018: '<': signed/unsigned mismatch
-C:\Users\steve\source\repos\project_2\src\image.cpp(375,30): warning C4018: '<': signed/unsigned mismatch
-  pixel.cpp
-  project_2.cpp
-C:\Users\steve\source\repos\project_2\src\project_2.cpp(57,10): warning C4101: 'test': unreferenced local variable
-C:\Users\steve\source\repos\project_2\src\project_2.cpp(49,10): warning C4101: 'test_files': unreferenced local variable
-  test.cpp
-  Generating Code...
+C:\Users\steve\source\repos\project_2\src\image.cpp(47,29): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\steve\source\repos\project_2\src\image.cpp(51,23): warning C4267: 'return': conversion from 'size_t' to 'const unsigned int', possible loss of data
+C:\Users\steve\source\repos\project_2\src\image.cpp(114,29): warning C4018: '<': signed/unsigned mismatch
+C:\Users\steve\source\repos\project_2\src\image.cpp(478,30): warning C4018: '<': signed/unsigned mismatch
+C:\Users\steve\source\repos\project_2\src\color.h(15,14): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+C:\Users\steve\source\repos\project_2\src\color.h(10): message : while compiling class template member function 'T color<T>::normalize(const T,const T)'
+          with
+          [
+              T=int
+          ]
+C:\Users\steve\source\repos\project_2\src\image.cpp(396): message : see reference to function template instantiation 'T color<T>::normalize(const T,const T)' being compiled
+          with
+          [
+              T=int
+          ]
+C:\Users\steve\source\repos\project_2\src\image.cpp(393): message : see reference to class template instantiation 'color<int>' being compiled
   project_2.vcxproj -> C:\Users\steve\source\repos\project_2\x64\Debug\project_2.exe

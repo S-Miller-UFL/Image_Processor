@@ -21,6 +21,10 @@ public:
 	void copy_to_file(const image&, image&);
 	header create_header(char, char, char, short, short, char, short, short, short, short, char, char);
 
+	image multiply(image&, image&);
+	image subtract(image&, image&);
+	image screen(image&, image&);
+	void clear();
 	void create_blank_file(std::string,header&);
 	const std::vector<pixel> get_pixel_array() const;
 	const pixel get_pixel(unsigned int) const;

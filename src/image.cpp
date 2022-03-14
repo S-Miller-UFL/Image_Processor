@@ -328,9 +328,9 @@ void image::randomize_color()
 		 normal_green = normalize_color.normalize(bottom.v_image.at(i).get_green(), top.v_image.at(i).get_green());
 		 normal_red = normalize_color.normalize(bottom.v_image.at(i).get_red(), top.v_image.at(i).get_red());
 		 
-		 bottom.v_image.at(i).set_blue((unsigned char)(normal_blue));
-		 bottom.v_image.at(i).set_green((unsigned char)(normal_green));
-		 bottom.v_image.at(i).set_red((unsigned char)(normal_red));
+		 bottom.v_image.at(i).set_blue((unsigned char)(normal_blue+.5f));
+		 bottom.v_image.at(i).set_green((unsigned char)(normal_green+.5f));
+		 bottom.v_image.at(i).set_red((unsigned char)(normal_red+.5f));
 	 }
 	// cout << top.getsize() << endl;
 	// cout << bottom.getsize() << endl;
@@ -393,12 +393,12 @@ void image::randomize_color()
 	 color <int> c_color;
 	 for (unsigned int i = 0; i < bottom.getsize(); i++)
 	 {
-		 screen_blue = c_color.normalize( 1-(top.v_image.at(i).get_blue()),1- (bottom.v_image.at(i).get_blue()));
-		 screen_blue = 1 - screen_blue;
-		 screen_green = c_color.normalize( 1-(top.v_image.at(i).get_green()), 1-(bottom.v_image.at(i).get_green()));
-		 screen_green = 1 - screen_green;
-		 screen_red = c_color.normalize( 1-(top.v_image.at(i).get_red()),1- (bottom.v_image.at(i).get_red()));
-		 screen_red = 1 - screen_red;
+		 screen_blue = c_color.normalize( 255-(top.v_image.at(i).get_blue()),255- (bottom.v_image.at(i).get_blue()));
+		 screen_blue = 255 - screen_blue;
+		 screen_green = c_color.normalize( 255-(top.v_image.at(i).get_green()), 255-(bottom.v_image.at(i).get_green()));
+		 screen_green = 255 - screen_green;
+		 screen_red = c_color.normalize( 255 -(top.v_image.at(i).get_red()),255 - (bottom.v_image.at(i).get_red()));
+		 screen_red = 255 - screen_red;
 
 		 /*
 		 if (1-c_color.normalize(1 - (top.v_image.at(i).get_blue()), 1 - (bottom.v_image.at(i).get_blue())) < 0)

@@ -243,5 +243,5 @@ void screen_test()
     image_.clear();
     read.read_file("examples/EXAMPLE_part3.tga", image_);
 
-    //test.compare(image_, image_5);
+    test.compare(image_, image_5);
 }

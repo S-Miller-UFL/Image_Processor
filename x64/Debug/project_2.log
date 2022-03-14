@@ -3,20 +3,4 @@ C:\Users\steve\source\repos\project_2\src\image.cpp(47,29): warning C4267: 'retu
 C:\Users\steve\source\repos\project_2\src\image.cpp(51,23): warning C4267: 'return': conversion from 'size_t' to 'const unsigned int', possible loss of data
 C:\Users\steve\source\repos\project_2\src\image.cpp(114,29): warning C4018: '<': signed/unsigned mismatch
 C:\Users\steve\source\repos\project_2\src\image.cpp(478,30): warning C4018: '<': signed/unsigned mismatch
-C:\Users\steve\source\repos\project_2\src\color.h(15,14): warning C4244: '=': conversion from 'float' to 'T', possible loss of data
-          with
-          [
-              T=int
-          ]
-C:\Users\steve\source\repos\project_2\src\color.h(10): message : while compiling class template member function 'T color<T>::normalize(const T,const T)'
-          with
-          [
-              T=int
-          ]
-C:\Users\steve\source\repos\project_2\src\image.cpp(396): message : see reference to function template instantiation 'T color<T>::normalize(const T,const T)' being compiled
-          with
-          [
-              T=int
-          ]
-C:\Users\steve\source\repos\project_2\src\image.cpp(393): message : see reference to class template instantiation 'color<int>' being compiled
   project_2.vcxproj -> C:\Users\steve\source\repos\project_2\x64\Debug\project_2.exe

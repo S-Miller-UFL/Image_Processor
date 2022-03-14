@@ -3,6 +3,8 @@
 #include <iostream>
 #include <vector>
 #include "color.h"
+//got help from alex duffaut on 3/14/2022 at around 2:30 pm
+//got help from james horn on 3/14/2022 at around 3:30 pm
 //////////////////////////////////
 //constant macros
 //MUST REMAIN DEFINED AS THEY CURRENTLY ARE
@@ -328,9 +330,9 @@ void image::randomize_color()
 		 normal_green = normalize_color.normalize(bottom.v_image.at(i).get_green(), top.v_image.at(i).get_green());
 		 normal_red = normalize_color.normalize(bottom.v_image.at(i).get_red(), top.v_image.at(i).get_red());
 		 
-		 bottom.v_image.at(i).set_blue((unsigned char)(normal_blue+.5f));
-		 bottom.v_image.at(i).set_green((unsigned char)(normal_green+.5f));
-		 bottom.v_image.at(i).set_red((unsigned char)(normal_red+.5f));
+		 bottom.v_image.at(i).set_blue((unsigned char)(normal_blue));
+		 bottom.v_image.at(i).set_green((unsigned char)(normal_green));
+		 bottom.v_image.at(i).set_red((unsigned char)(normal_red));
 	 }
 	// cout << top.getsize() << endl;
 	// cout << bottom.getsize() << endl;
@@ -383,53 +385,92 @@ void image::randomize_color()
 
 	 return bottom;
  }
- //c= 1-(1-top pixel)*(1-bottom pixel)
+ //c= 255-(255-top pixel)*(255-bottom pixel)
  image image::screen(image& top, image& bottom)
  {
-	 int screen_blue = 0;
-	 int screen_green = 0;
-	 int screen_red = 0;
+	 double screen_blue = 0;
+	 double screen_green = 0;
+	 double screen_red = 0;
+	 double screen_blue_b = 0;
+	 double screen_green_b = 0;
+	 double screen_red_b = 0;
+
 
 	 color <int> c_color;
 	 for (unsigned int i = 0; i < bottom.getsize(); i++)
 	 {
-		 screen_blue = c_color.normalize( 255-(top.v_image.at(i).get_blue()),255- (bottom.v_image.at(i).get_blue()));
-		 screen_blue = 255 - screen_blue;
-		 screen_green = c_color.normalize( 255-(top.v_image.at(i).get_green()), 255-(bottom.v_image.at(i).get_green()));
-		 screen_green = 255 - screen_green;
-		 screen_red = c_color.normalize( 255 -(top.v_image.at(i).get_red()),255 - (bottom.v_image.at(i).get_red()));
-		 screen_red = 255 - screen_red;
+		 //get screen for blue
+		 screen_blue = (double)top.v_image.at(i).get_blue(); //gets blue
+		 screen_blue = screen_blue / 255.0f; //normalizes
+		 screen_blue = 1 - screen_blue; //gets inversion
+		 
+		 screen_blue_b = (double)bottom.v_image.at(i).get_blue(); //gets blue
+		 screen_blue_b = screen_blue_b / 255.0f; //normalizes
+		 screen_blue_b = 1 - screen_blue_b; //inverts
 
-		 /*
-		 if (1-c_color.normalize(1 - (top.v_image.at(i).get_blue()), 1 - (bottom.v_image.at(i).get_blue())) < 0)
+		 screen_blue = screen_blue * screen_blue_b; //multiplies
+		 screen_blue = 1 - screen_blue; //inverts product
+		 screen_blue = screen_blue * 255.0f; //denormalize
+		 screen_blue = screen_blue + .5f;//error correction
+
+		 //double check
+		 if ((int)screen_blue < 0)
 		 {
 			 screen_blue = 0;
 		 }
-		 else if (1-c_color.normalize(1 - (top.v_image.at(i).get_blue()), 1 - (bottom.v_image.at(i).get_blue())) > 255)
+		 else if ((int)screen_blue > 255)
 		 {
 			 screen_blue = 255;
 		 }
 
-		 
-		 if (1-c_color.normalize(1 - (top.v_image.at(i).get_green()), 1 - (bottom.v_image.at(i).get_green())) < 0)
+		 //get screen for green
+		 screen_green = (double)top.v_image.at(i).get_green(); //gets green
+		 screen_green = screen_green / 255.0f; //normalizes
+		 screen_green = 1 - screen_green; //gets inversion
+
+		 screen_green_b = (double)bottom.v_image.at(i).get_green(); //gets green bottom
+		 screen_green_b = screen_green_b / 255.0f; //normalizes
+		 screen_green_b = 1 - screen_green_b; //inverts
+
+		 screen_green = screen_green * screen_green_b; //multiplies
+		 screen_green = 1 - screen_green; //inverts product
+		 screen_green = screen_green * 255.0f; //denormalize
+		 screen_green = screen_green + .5f;//error correction
+
+		 //double check
+		 if ((int)screen_green < 0)
 		 {
 			 screen_green = 0;
 		 }
-		 else if (1-c_color.normalize(1 - (top.v_image.at(i).get_green()), 1 - (bottom.v_image.at(i).get_green())) > 255)
+		 else if ((int)screen_green > 255)
 		 {
 			 screen_green = 255;
 		 }
-		 
-		
-		 if (1-c_color.normalize(1 - (top.v_image.at(i).get_red()), 1 - (bottom.v_image.at(i).get_red())) < 0)
+
+		 //get screen for red
+		 screen_red = (double)top.v_image.at(i).get_red(); //gets green
+		 screen_red = screen_red / 255.0f; //normalizes
+		 screen_red = 1 - screen_red; //gets inversion
+
+		 screen_red_b = (double)bottom.v_image.at(i).get_red(); //gets green bottom
+		 screen_red_b = screen_red_b / 255.0f; //normalizes
+		 screen_red_b = 1 - screen_red_b; //inverts
+
+		 screen_red = screen_red * screen_red_b; //multiplies
+		 screen_red = 1 - screen_red; //inverts product
+		 screen_red = screen_red * 255.0f; //denormalize
+		 screen_red = screen_red + .5f;//error correction
+
+		 //double check
+		 if ((int)screen_red < 0)
 		 {
-			 screen_red = 0;
+			 screen_red= 0;
 		 }
-		 else if (1-c_color.normalize(1 - (top.v_image.at(i).get_red()), 1 - (bottom.v_image.at(i).get_red())) > 255)
+		 else if ((int)screen_red> 255)
 		 {
 			 screen_red = 255;
 		 }
-		 */
+
 		 bottom.v_image.at(i).set_blue((unsigned char)(screen_blue));
 		 bottom.v_image.at(i).set_green((unsigned char)(screen_green));
 		 bottom.v_image.at(i).set_red((unsigned char)(screen_red));

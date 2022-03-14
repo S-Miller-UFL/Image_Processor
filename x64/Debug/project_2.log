@@ -1,6 +1,7 @@
 ﻿  image.cpp
-C:\Users\steve\source\repos\project_2\src\image.cpp(47,29): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
-C:\Users\steve\source\repos\project_2\src\image.cpp(51,23): warning C4267: 'return': conversion from 'size_t' to 'const unsigned int', possible loss of data
-C:\Users\steve\source\repos\project_2\src\image.cpp(114,29): warning C4018: '<': signed/unsigned mismatch
-C:\Users\steve\source\repos\project_2\src\image.cpp(478,30): warning C4018: '<': signed/unsigned mismatch
+C:\Users\steve\source\repos\project_2\src\image.cpp(49,29): warning C4267: 'return': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\steve\source\repos\project_2\src\image.cpp(53,23): warning C4267: 'return': conversion from 'size_t' to 'const unsigned int', possible loss of data
+C:\Users\steve\source\repos\project_2\src\image.cpp(116,29): warning C4018: '<': signed/unsigned mismatch
+C:\Users\steve\source\repos\project_2\src\image.cpp(399,15): warning C4101: 'c_color': unreferenced local variable
+C:\Users\steve\source\repos\project_2\src\image.cpp(519,30): warning C4018: '<': signed/unsigned mismatch
   project_2.vcxproj -> C:\Users\steve\source\repos\project_2\x64\Debug\project_2.exe

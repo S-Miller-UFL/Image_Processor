@@ -12,7 +12,7 @@ T color<T>::normalize(const T value_, const T value_1)
 	temp = value_ * value_1;
 
 	temp = temp / 255;
-	temp = temp;
+	temp = temp +.5f;
 	
 	return temp;
 }

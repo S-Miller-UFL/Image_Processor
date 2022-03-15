@@ -36,6 +36,9 @@ void create_file_test();
 void multiply_test();
 void subtract_test();
 void screen_test();
+void subtract_test_2();
+void overlay_test();
+void add_color_test();
 
 int main()
 {
@@ -54,7 +57,12 @@ int main()
     subtract_test();
     //screen test
     screen_test();
-
+    //subtract test 2
+    subtract_test_2();
+    //overlay test
+    overlay_test();
+    //add color test
+    add_color_test();
 
 }
 
@@ -221,6 +229,8 @@ void screen_test()
     image image_4;
     image image_5;
     image operations;
+    IO_HEADER header_io;
+    header header_f;
     IO_READ read;
     IO_WRITE write;
     IO_TEST test;
@@ -244,4 +254,123 @@ void screen_test()
     read.read_file("examples/EXAMPLE_part3.tga", image_);
 
     test.compare(image_, image_5);
+
+    //screen red over jubei
+    image_.clear();
+    image_2.clear();
+    image_3.clear();
+
+    read.read_file("input/jubei.tga", image_);
+
+    header_f = header_io.create_header(ID_LENGTH, COLOR_MAP_TYPE, DATA_TYPE_CODE, 0, COLOR_MAP_LENGTH, 0, 0, 0, 690, 812, BPP, 0);
+
+    image_.edit_header();
+
+    write.create_file("input/red.tga", header_f);
+
+    read.read_file("input/red.tga", image_2);
+    image_2.set_color(RED);
+    
+    write.write_file("input/red.tga", image_2);
+
+    image_3 = operations.screen(image_2, image_);
+
+    write.write_file("output/red_jubei.tga", image_3);
+}
+
+void subtract_test_2()
+{
+    image image_;
+    image image_2;
+    image image_3;
+    image image_4;
+    image image_5;
+    image operations;
+    IO_HEADER header_io;
+    header header_f;
+    IO_READ read;
+    IO_WRITE write;
+    IO_TEST test;
+
+    std::cout << "Starting subtract test 2: " << std::endl;
+
+    read.read_file("input/layer2.tga", image_);
+    read.read_file("input/circles.tga", image_2);
+
+    image_3 = operations.multiply(image_, image_2);
+
+    read.read_file("input/pattern2.tga", image_4);
+
+    image_5 = operations.subtract(image_4, image_3);
+
+    write.write_file("output/subtract_test_2.tga", image_5);
+
+    image_.clear();
+
+    read.read_file("examples/EXAMPLE_part4.tga", image_);
+
+    test.compare(image_,image_5);
+
+
+
+}
+
+void overlay_test()
+{
+
+    image top;
+    image bottom;
+    image overlay;
+    image example;
+    image image_5;
+    image operations;
+    IO_HEADER header_io;
+    header header_f;
+    IO_READ read;
+    IO_WRITE write;
+    IO_TEST test;
+    std::cout << "Starting overlay test: " << std::endl;
+
+    read.read_file("input/layer1.tga", top);
+    read.read_file("input/pattern1.tga", bottom);
+
+    overlay = operations.overlay(top, bottom);
+
+    write.write_file("output/overlay_test.tga", overlay);
+
+    read.read_file("examples/EXAMPLE_part5.tga", example);
+
+    test.compare(example, overlay);
+
+}
+
+void add_color_test()
+{
+    image image_;
+    image image_2;
+    image image_3;
+    image image_4;
+    image image_5;
+    image operations;
+    IO_HEADER header_io;
+    header header_f;
+    IO_READ read;
+    IO_WRITE write;
+    IO_TEST test;
+
+    std::cout << "Starting add color test: " << std::endl;
+
+    read.read_file("input/car.tga", image_);
+
+    image_.add_color(0, 200, 0);
+
+    write.write_file("output/add_color_test_200_green.tga", image_);
+
+    read.read_file("examples/EXAMPLE_part6.tga", image_2);
+
+    image_.clear();
+
+    read.read_file("output/add_color_test_200_green.tga", image_);
+
+    test.compare(image_2, image_);
 }

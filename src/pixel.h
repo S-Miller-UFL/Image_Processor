@@ -12,6 +12,11 @@ public:
 	void set_blue(const unsigned char);
 	void set_green(const unsigned char);
 	void set_red(const unsigned char);
+
+	void add_blue(const unsigned char);
+	void add_green(const unsigned char);
+	void add_red(const unsigned char);
+
 private:
 
 	unsigned char blue;

@@ -478,6 +478,205 @@ void image::randomize_color()
 	 return bottom;
  }
 
+ image image::overlay(image& top, image& bottom)
+ {
+	 double overlay_blue = 0;
+	 double overlay_green = 0;
+	 double overlay_red = 0;
+	 double overlay_blue_b = 0;
+	 double overlay_green_b = 0;
+	 double overlay_red_b = 0;
+	 for (unsigned int i = 0; i < bottom.getsize(); i++)
+	 {
+		 //blue layer
+		 overlay_blue = (double)top.v_image.at(i).get_blue();
+		 overlay_blue = overlay_blue / 255.0f;
+
+		 overlay_blue_b = (double)bottom.v_image.at(i).get_blue();
+		 overlay_blue_b = overlay_blue_b / 255.0f;
+
+		 if (overlay_blue_b <= .5f)
+		 {
+			 overlay_blue_b = 2 * overlay_blue * overlay_blue_b;
+			 overlay_blue_b = overlay_blue_b * 255.0f;
+			 overlay_blue_b = overlay_blue_b + .5f;
+		 }
+		 else if (overlay_blue_b >= .5f)
+		 {
+			 overlay_blue = 1 - overlay_blue;
+			 overlay_blue_b = 1 - overlay_blue_b;
+
+			 overlay_blue_b = overlay_blue_b * overlay_blue;
+
+			 overlay_blue_b = 2 * overlay_blue_b;
+
+			 overlay_blue_b = 1 - overlay_blue_b;
+
+			 overlay_blue_b = overlay_blue_b * 255.0f;
+
+			 overlay_blue_b = overlay_blue_b + .5f;
+		 }
+
+		 if ((int)overlay_blue_b > 255)
+		 {
+			 overlay_blue_b = 255;
+		 }
+		 else if ((int)overlay_blue_b < 0)
+		 {
+			 overlay_blue_b = 0;
+		 }
+
+		 //green layer
+		 overlay_green = (double)top.v_image.at(i).get_green();
+		 overlay_green = overlay_green / 255.0f;
+
+		 overlay_green_b = (double)bottom.v_image.at(i).get_green();
+		 overlay_green_b = overlay_green_b / 255.0f;
+
+		 if (overlay_green_b <= .5f)
+		 {
+			 overlay_green_b = 2 * overlay_green* overlay_green_b;
+			 overlay_green_b = overlay_green_b * 255.0f;
+			 overlay_green_b = overlay_green_b + .5f;
+		 }
+		 else if (overlay_green_b >= .5f)
+		 {
+			 overlay_green = 1 - overlay_green;
+			 overlay_green_b = 1 - overlay_green_b;
+
+			 overlay_green_b = overlay_green_b * overlay_green;
+
+			 overlay_green_b = 2 * overlay_green_b;
+
+			 overlay_green_b = 1 - overlay_green_b;
+
+			 overlay_green_b = overlay_green_b * 255.0f;
+
+			 overlay_green_b = overlay_green_b + .5f;
+		 }
+
+		 if ((int)overlay_green_b > 255)
+		 {
+			 overlay_green_b = 255;
+		 }
+		 else if ((int)overlay_green_b < 0)
+		 {
+			 overlay_green_b = 0;
+		 }
+
+		 //red layer
+		 overlay_red = (double)top.v_image.at(i).get_red();
+		 overlay_red = overlay_red / 255.0f;
+
+		 overlay_red_b = (double)bottom.v_image.at(i).get_red();
+		 overlay_red_b = overlay_red_b / 255.0f;
+
+		 if (overlay_red_b <= .5f)
+		 {
+			 overlay_red_b = 2 * overlay_red * overlay_red_b;
+			 overlay_red_b = overlay_red_b * 255.0f;
+			 overlay_red_b = overlay_red_b + .5f;
+		 }
+		 else if (overlay_red_b >= .5f)
+		 {
+			 overlay_red = 1 - overlay_red;
+			 overlay_red_b = 1 - overlay_red_b;
+
+			 overlay_red_b = overlay_red_b * overlay_red;
+
+			 overlay_red_b = 2 * overlay_red_b;
+
+			 overlay_red_b = 1 - overlay_red_b;
+
+			 overlay_red_b = overlay_red_b * 255.0f;
+
+			 overlay_red_b = overlay_red_b + .5f;
+		 }
+
+		 if ((int)overlay_red_b > 255)
+		 {
+			 overlay_red_b = 255;
+		 }
+		 else if ((int)overlay_red_b < 0)
+		 {
+			 overlay_red_b = 0;
+		 }
+		 bottom.v_image.at(i).set_blue((unsigned char)overlay_blue_b);
+		 bottom.v_image.at(i).set_green((unsigned char)overlay_green_b);
+		 bottom.v_image.at(i).set_red((unsigned char)overlay_red_b);
+	 }
+
+
+	 return bottom;
+ }
+
+ void image::edit_header()
+ {
+	 this->id_length = ID_LENGTH;
+	 this->color_map_type = COLOR_MAP_TYPE;
+	 this->image_type = DATA_TYPE_CODE;
+	 this->color_map_length = COLOR_MAP_LENGTH;
+	 this->pixel_depth = BPP;
+	 
+ }
+
+ void image::add_color(unsigned char red_, unsigned char green_, unsigned char blue_)
+ {
+	 int blue = 0;
+	 int green = 0;
+	 int red = 0;
+	 for (unsigned int i = 0; i < this->getsize(); i++)
+	 {
+		 blue = this->v_image.at(i).get_blue();
+		 green = this->v_image.at(i).get_green();
+		 red = this->v_image.at(i).get_red();
+
+		 if (blue + blue_ > 255)
+		 {
+			 blue = 255;
+		 }
+		 else
+		 {
+			 blue = blue + blue_;
+		 }
+		 if (green + green_ > 255)
+		 {
+			 green = 255;
+		 }
+		 else
+		 {
+			 green = green + green_;
+		 }
+		 if (red + red_ > 255)
+		 {
+			 red = 255;
+		 }
+		 else
+		 {
+			 red = red + red_;
+		 }
+
+		 this->v_image.at(i).set_blue((unsigned char)blue);
+		 this->v_image.at(i).set_green((unsigned char)green);
+		 this->v_image.at(i).set_red((unsigned char)red);
+	 }
+	 /*
+	 for (unsigned int i = 0; i < header_f.getsize(); i++)
+	 {
+		 file_write.write((char*)&header_f.v_image.at(i).get_green(), CHAR);
+
+		 file_write.write((char*)&header_f.v_image.at(i).get_red(), CHAR);
+
+		 file_write.write((char*)&header_f.v_image.at(i).get_blue(), CHAR);
+
+		 //file_write.write((char*)&header_f.v_image.at(i).get_green(), CHAR);
+
+		 //file_write.write((char*)&header_f.v_image.at(i).get_red(), CHAR);
+	 }
+	 */
+
+ }
+
  void image::clear()
  {
 	 this->v_image.clear();

@@ -25,8 +25,9 @@ public:
 	image subtract(image&, image&);
 	image screen(image&, image&);
 	image overlay(image&, image&);
+	void scale(unsigned int, unsigned int, unsigned int);
 	void edit_header();
-	void add_color(unsigned char, unsigned char, unsigned char);
+	void add(unsigned char, unsigned char, unsigned char);
 	void clear();
 	void create_blank_file(std::string,header&);
 	const std::vector<pixel> get_pixel_array() const;

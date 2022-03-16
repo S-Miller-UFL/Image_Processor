@@ -39,10 +39,10 @@ void screen_test();
 void subtract_test_2();
 void overlay_test();
 void add_color_test();
+void multiply_Test_2();
 
 int main()
 {
-
     //simple read and write test
     read_write_test();
     //set color test
@@ -63,6 +63,8 @@ int main()
     overlay_test();
     //add color test
     add_color_test();
+    //mutliply test 2
+    multiply_Test_2();
 
 }
 
@@ -129,7 +131,6 @@ void randomize_color_test()
 
 void create_file_test()
 {
-
     IO_READ read;
     IO_WRITE write;
     image image_;
@@ -275,7 +276,7 @@ void screen_test()
 
     image_3 = operations.screen(image_2, image_);
 
-    write.write_file("output/red_jubei.tga", image_3);
+    write.write_file("input/jubei.tga", image_3);
 }
 
 void subtract_test_2()
@@ -310,14 +311,10 @@ void subtract_test_2()
     read.read_file("examples/EXAMPLE_part4.tga", image_);
 
     test.compare(image_,image_5);
-
-
-
 }
 
 void overlay_test()
 {
-
     image top;
     image bottom;
     image overlay;
@@ -362,7 +359,7 @@ void add_color_test()
 
     read.read_file("input/car.tga", image_);
 
-    image_.add_color(0, 200, 0);
+    image_.add(0, 200, 0);
 
     write.write_file("output/add_color_test_200_green.tga", image_);
 
@@ -371,6 +368,34 @@ void add_color_test()
     image_.clear();
 
     read.read_file("output/add_color_test_200_green.tga", image_);
+
+    test.compare(image_2, image_);
+}
+
+void multiply_Test_2()
+{
+    image image_;
+    image image_2;
+    image image_3;
+    image image_4;
+    image image_5;
+    image operations;
+    IO_HEADER header_io;
+    header header_f;
+    IO_READ read;
+    IO_WRITE write;
+    IO_TEST test;
+
+    std::cout << "Starting multiply test 2: " << std::endl;
+
+    read.read_file("input/car.tga", image_);
+
+    image_.scale(4,1,0);
+
+    read.read_file("examples/EXAMPLE_part7.tga", image_2);
+
+    write.write_file("output/multiply_Test_2.tga", image_);
+
 
     test.compare(image_2, image_);
 }

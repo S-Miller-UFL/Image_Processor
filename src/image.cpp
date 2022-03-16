@@ -610,6 +610,36 @@ void image::randomize_color()
 	 return bottom;
  }
 
+ void image::scale(unsigned int red_scale, unsigned int green_scale, unsigned int blue_scale)
+ {
+	 float blue;
+	 float green;
+	 float red;
+	 for (unsigned int i = 0; i < this->getsize(); i++)
+	 {
+		 red = red_scale * this->v_image.at(i).get_red();
+		 green = green_scale * this->v_image.at(i).get_green();
+		 blue = blue_scale * this->v_image.at(i).get_blue();
+
+		 if (red > 255.0f)
+		 {
+			 red = 255;
+		 }
+		 if (green > 255.0f)
+		 {
+			 green = 255;
+		 }
+		 if (blue > 255.0f)
+		 {
+			 blue = 255;
+		 }
+		 this->v_image.at(i).set_red(red);
+		 this->v_image.at(i).set_green(green);
+		 this->v_image.at(i).set_blue(blue);
+
+	 }
+ }
+
  void image::edit_header()
  {
 	 this->id_length = ID_LENGTH;
@@ -620,7 +650,7 @@ void image::randomize_color()
 	 
  }
 
- void image::add_color(unsigned char red_, unsigned char green_, unsigned char blue_)
+ void image::add(unsigned char red_, unsigned char green_, unsigned char blue_)
  {
 	 int blue = 0;
 	 int green = 0;

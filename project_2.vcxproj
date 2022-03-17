@@ -149,6 +149,7 @@
     <ClInclude Include="src\color.h" />
     <ClInclude Include="src\header.h" />
     <ClInclude Include="src\image.h" />
+    <ClInclude Include="src\macros.h" />
     <ClInclude Include="src\pixel.h" />
     <ClInclude Include="src\IO.h" />
     <ClInclude Include="src\test.h" />

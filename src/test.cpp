@@ -8,7 +8,6 @@ bool test::test_compare_images(const image& image_1, const image& image_2) const
 	{
 		std::cout << "images are not same size!" << std::endl;
 		return false;
-		//std::cout << "false!" << std::endl;
 	}
 	
 	else
@@ -17,36 +16,34 @@ bool test::test_compare_images(const image& image_1, const image& image_2) const
 		{
 			if (image_1.get_pixel(i).get_blue() != image_2.get_pixel(i).get_blue())
 			{
-				
+				/*
 				std::cout << "image 1, pixel number " << i << " value for blue is: " << (int)image_1.get_pixel(i).get_blue() << std::endl;
 				std::cout << "image 2, pixel number " << i << " value for blue is: " << (int)image_2.get_pixel(i).get_blue() << std::endl;
 				std::cout << std::endl;
-				
+				*/
 				correct = false;
 			}
 			if (image_1.get_pixel(i).get_green() != image_2.get_pixel(i).get_green())
 			{
-				
+				/*
 				std::cout << "image 1, pixel number " << i << " value for green is: " << (int)image_1.get_pixel(i).get_green() << std::endl;
 				std::cout << "image 2, pixel number " << i << " value for green is: " << (int)image_2.get_pixel(i).get_green() << std::endl;
 				std::cout << std::endl;
-				
+				*/
 				correct = false;
 			}
 			if (image_1.get_pixel(i).get_red() != image_2.get_pixel(i).get_red())
 			{
-				
+				/*
 				std::cout << "image 1, pixel number " << i << " value for red is: " << (int)image_1.get_pixel(i).get_red() << std::endl;
 				std::cout << "image 2, pixel number " << i << " value for red is: " << (int)image_2.get_pixel(i).get_red() << std::endl;
 				std::cout << std::endl;
-				
+				*/
 
 				correct = false;
 			}
 
 		}
-		//correct = correct / 3;
-		//if(correct !=)
 	}
 		return correct;
 }

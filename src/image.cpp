@@ -5,32 +5,34 @@
 #include "color.h"
 //got help from alex duffaut on 3/14/2022 at around 2:30 pm
 //got help from james horn on 3/14/2022 at around 3:30 pm
-//////////////////////////////////
-//constant macros
-//MUST REMAIN DEFINED AS THEY CURRENTLY ARE
-#define ID_LENGTH 0
-#define COLOR_MAP_TYPE 0
-#define DATA_TYPE_CODE 2
-#define COLOR_MAP_LENGTH 0
-#define BPP 24
-//////////////////////////////////
 
 //////////////////////////////////
-//COLOR MACROS
-#define RED 255,0,0
-#define GREEN 0,255,0
-#define BLUE 0,0,255
-#define BLACK 0,0,0
-#define WHITE 255,255,255
-#define MAX 255
-#define NONE 0
+//DO NOT REASSIGN IMAGE OBJECTS WITHOUT CALLING "CLEAR()" FIRST
 //////////////////////////////////
 
+/*
+MACROS:
 //////////////////////////////////
-//FILE MACROS
-#define CHAR 1
-#define SHORT 2
+ RED: 255,0,0
+ GREEN: 0,255,0
+ BLUE: 0,0,255
+ BLACK: 0,0,0
+ WHITE: 255,255,255
+ MAX_INT:255
+ NONE: 0.0f
+ MAX_FLOAT: 255.0f
+ ID_LENGTH: 0
+ COLOR_MAP_TYPE: 0
+ DATA_TYPE_CODE: 2
+ COLOR_MAP_LENGTH: 0
+ BPP: 24
+ CHAR: 1
+ SHORT: 2
+ WIDTH: 512
+ HEIGHT: 512
+ HEADER: ID_LENGTH, COLOR_MAP_TYPE, DATA_TYPE_CODE, 0, COLOR_MAP_LENGTH, 0, 0, 0, WIDTH, HEIGHT, BPP, 0
 //////////////////////////////////
+*/
 using namespace std;
 void image::addpixel(pixel& pix)
 {
@@ -93,7 +95,7 @@ void image::read_file(std::string file_name, image& file)
 	image.read(&file.image_descriptor, CHAR); //read image descriptor
 
 	//display image details
-
+	/*
 	cout << "ID Length: " << (int)file.id_length << endl;
 	cout << "Color Map Type: " << (int)file.color_map_type << endl;
 	cout << "Data Type Code: " << (int)file.image_type << endl;
@@ -107,7 +109,7 @@ void image::read_file(std::string file_name, image& file)
 	cout << "Bits Per Pixel: " << (int)file.pixel_depth << endl;
 	cout << "Image Descriptor: " << (int)file.image_descriptor << endl;
 	cout << endl;
-	
+	*/
 	//read image data 
 	unsigned char blue = 0;
 	unsigned char green = 0;
@@ -229,14 +231,14 @@ void image::randomize_color()
 		{
 			this->v_image.at(i).set_blue(NONE);
 
-			this->v_image.at(i).set_green(MAX);
+			this->v_image.at(i).set_green(MAX_INT);
 
 			this->v_image.at(i).set_red(NONE);
 		}
 		//if odd, set to blue
 		else if (i % 3 == 0)
 		{ 
-			this->v_image.at(i).set_blue(MAX);
+			this->v_image.at(i).set_blue(MAX_INT);
 
 			this->v_image.at(i).set_green(NONE);
 
@@ -249,21 +251,10 @@ void image::randomize_color()
 
 			this->v_image.at(i).set_green(NONE);
 
-			this->v_image.at(i).set_red(MAX);
+			this->v_image.at(i).set_red(MAX_INT);
 		}
 	}
 }
-
- void image::copy_to_file_create_new(std::string name, image& file_to_copy ,image& copied_file)
- {
-	
- }
-
- void image::copy_to_file(const image& file_to_copy, image& copied_file)
- {
-	// copied_file.
-
- }
 
  header image::create_header(char id_length, char color_map_type, 
 	 char image_type, short color_map_origin, 
@@ -355,7 +346,7 @@ void image::randomize_color()
 		 }
 		 else if (bottom.v_image.at(i).get_blue() - top.v_image.at(i).get_blue() > 255)
 		 {
-			 sub_blue = MAX;
+			 sub_blue = MAX_INT;
 		 }
 		 sub_green = bottom.v_image.at(i).get_green() - top.v_image.at(i).get_green();
 		 if (bottom.v_image.at(i).get_green() - top.v_image.at(i).get_green() < 0)
@@ -364,7 +355,7 @@ void image::randomize_color()
 		 }
 		 else if (bottom.v_image.at(i).get_green() - top.v_image.at(i).get_green() > 255)
 		 {
-			 sub_green = MAX;
+			 sub_green = MAX_INT;
 		 }
 		 sub_red = bottom.v_image.at(i).get_red() - top.v_image.at(i).get_red();
 		 if (bottom.v_image.at(i).get_red() - top.v_image.at(i).get_red() < 0)
@@ -373,7 +364,7 @@ void image::randomize_color()
 		 }
 		 else if (bottom.v_image.at(i).get_red() - top.v_image.at(i).get_red() > 255)
 		 {
-			 sub_red = MAX;
+			 sub_red = MAX_INT;
 		 }
 		 
 		 bottom.v_image.at(i).set_blue((unsigned char)(sub_blue));
@@ -388,12 +379,12 @@ void image::randomize_color()
  //c= 255-(255-top pixel)*(255-bottom pixel)
  image image::screen(image& top, image& bottom)
  {
-	 double screen_blue = 0;
-	 double screen_green = 0;
-	 double screen_red = 0;
-	 double screen_blue_b = 0;
-	 double screen_green_b = 0;
-	 double screen_red_b = 0;
+	 double screen_blue = NONE;
+	 double screen_green = NONE;
+	 double screen_red = NONE;
+	 double screen_blue_b = NONE;
+	 double screen_green_b = NONE;
+	 double screen_red_b = NONE;
 
 
 	 color <int> c_color;
@@ -401,74 +392,74 @@ void image::randomize_color()
 	 {
 		 //get screen for blue
 		 screen_blue = (double)top.v_image.at(i).get_blue(); //gets blue
-		 screen_blue = screen_blue / 255.0f; //normalizes
+		 screen_blue = screen_blue / MAX_FLOAT; //normalizes
 		 screen_blue = 1 - screen_blue; //gets inversion
 		 
 		 screen_blue_b = (double)bottom.v_image.at(i).get_blue(); //gets blue
-		 screen_blue_b = screen_blue_b / 255.0f; //normalizes
+		 screen_blue_b = screen_blue_b / MAX_FLOAT; //normalizes
 		 screen_blue_b = 1 - screen_blue_b; //inverts
 
 		 screen_blue = screen_blue * screen_blue_b; //multiplies
 		 screen_blue = 1 - screen_blue; //inverts product
-		 screen_blue = screen_blue * 255.0f; //denormalize
+		 screen_blue = screen_blue * MAX_FLOAT; //denormalize
 		 screen_blue = screen_blue + .5f;//error correction
 
 		 //double check
 		 if ((int)screen_blue < 0)
 		 {
-			 screen_blue = 0;
+			 screen_blue = NONE;
 		 }
 		 else if ((int)screen_blue > 255)
 		 {
-			 screen_blue = 255;
+			 screen_blue = MAX_INT;
 		 }
 
 		 //get screen for green
 		 screen_green = (double)top.v_image.at(i).get_green(); //gets green
-		 screen_green = screen_green / 255.0f; //normalizes
+		 screen_green = screen_green / MAX_FLOAT; //normalizes
 		 screen_green = 1 - screen_green; //gets inversion
 
 		 screen_green_b = (double)bottom.v_image.at(i).get_green(); //gets green bottom
-		 screen_green_b = screen_green_b / 255.0f; //normalizes
+		 screen_green_b = screen_green_b / MAX_FLOAT; //normalizes
 		 screen_green_b = 1 - screen_green_b; //inverts
 
 		 screen_green = screen_green * screen_green_b; //multiplies
 		 screen_green = 1 - screen_green; //inverts product
-		 screen_green = screen_green * 255.0f; //denormalize
+		 screen_green = screen_green * MAX_FLOAT; //denormalize
 		 screen_green = screen_green + .5f;//error correction
 
 		 //double check
 		 if ((int)screen_green < 0)
 		 {
-			 screen_green = 0;
+			 screen_green = NONE;
 		 }
 		 else if ((int)screen_green > 255)
 		 {
-			 screen_green = 255;
+			 screen_green = MAX_INT;
 		 }
 
 		 //get screen for red
 		 screen_red = (double)top.v_image.at(i).get_red(); //gets green
-		 screen_red = screen_red / 255.0f; //normalizes
+		 screen_red = screen_red / MAX_FLOAT; //normalizes
 		 screen_red = 1 - screen_red; //gets inversion
 
 		 screen_red_b = (double)bottom.v_image.at(i).get_red(); //gets green bottom
-		 screen_red_b = screen_red_b / 255.0f; //normalizes
+		 screen_red_b = screen_red_b / MAX_FLOAT; //normalizes
 		 screen_red_b = 1 - screen_red_b; //inverts
 
 		 screen_red = screen_red * screen_red_b; //multiplies
 		 screen_red = 1 - screen_red; //inverts product
-		 screen_red = screen_red * 255.0f; //denormalize
+		 screen_red = screen_red * MAX_FLOAT; //denormalize
 		 screen_red = screen_red + .5f;//error correction
 
 		 //double check
 		 if ((int)screen_red < 0)
 		 {
-			 screen_red= 0;
+			 screen_red= NONE;
 		 }
 		 else if ((int)screen_red> 255)
 		 {
-			 screen_red = 255;
+			 screen_red = MAX_INT;
 		 }
 
 		 bottom.v_image.at(i).set_blue((unsigned char)(screen_blue));
@@ -480,25 +471,25 @@ void image::randomize_color()
 
  image image::overlay(image& top, image& bottom)
  {
-	 double overlay_blue = 0;
-	 double overlay_green = 0;
-	 double overlay_red = 0;
-	 double overlay_blue_b = 0;
-	 double overlay_green_b = 0;
-	 double overlay_red_b = 0;
+	 double overlay_blue = NONE;
+	 double overlay_green = NONE;
+	 double overlay_red = NONE;
+	 double overlay_blue_b = NONE;
+	 double overlay_green_b = NONE;
+	 double overlay_red_b = NONE;
 	 for (unsigned int i = 0; i < bottom.getsize(); i++)
 	 {
 		 //blue layer
 		 overlay_blue = (double)top.v_image.at(i).get_blue();
-		 overlay_blue = overlay_blue / 255.0f;
+		 overlay_blue = overlay_blue / MAX_FLOAT;
 
 		 overlay_blue_b = (double)bottom.v_image.at(i).get_blue();
-		 overlay_blue_b = overlay_blue_b / 255.0f;
+		 overlay_blue_b = overlay_blue_b / MAX_FLOAT;
 
 		 if (overlay_blue_b <= .5f)
 		 {
 			 overlay_blue_b = 2 * overlay_blue * overlay_blue_b;
-			 overlay_blue_b = overlay_blue_b * 255.0f;
+			 overlay_blue_b = overlay_blue_b * MAX_FLOAT;
 			 overlay_blue_b = overlay_blue_b + .5f;
 		 }
 		 else if (overlay_blue_b >= .5f)
@@ -512,14 +503,14 @@ void image::randomize_color()
 
 			 overlay_blue_b = 1 - overlay_blue_b;
 
-			 overlay_blue_b = overlay_blue_b * 255.0f;
+			 overlay_blue_b = overlay_blue_b * MAX_FLOAT;
 
 			 overlay_blue_b = overlay_blue_b + .5f;
 		 }
 
 		 if ((int)overlay_blue_b > 255)
 		 {
-			 overlay_blue_b = 255;
+			 overlay_blue_b = MAX_INT;
 		 }
 		 else if ((int)overlay_blue_b < 0)
 		 {
@@ -528,15 +519,15 @@ void image::randomize_color()
 
 		 //green layer
 		 overlay_green = (double)top.v_image.at(i).get_green();
-		 overlay_green = overlay_green / 255.0f;
+		 overlay_green = overlay_green / MAX_FLOAT;
 
 		 overlay_green_b = (double)bottom.v_image.at(i).get_green();
-		 overlay_green_b = overlay_green_b / 255.0f;
+		 overlay_green_b = overlay_green_b / MAX_FLOAT;
 
 		 if (overlay_green_b <= .5f)
 		 {
 			 overlay_green_b = 2 * overlay_green* overlay_green_b;
-			 overlay_green_b = overlay_green_b * 255.0f;
+			 overlay_green_b = overlay_green_b * MAX_FLOAT;
 			 overlay_green_b = overlay_green_b + .5f;
 		 }
 		 else if (overlay_green_b >= .5f)
@@ -550,31 +541,31 @@ void image::randomize_color()
 
 			 overlay_green_b = 1 - overlay_green_b;
 
-			 overlay_green_b = overlay_green_b * 255.0f;
+			 overlay_green_b = overlay_green_b * MAX_FLOAT;
 
 			 overlay_green_b = overlay_green_b + .5f;
 		 }
 
-		 if ((int)overlay_green_b > 255)
+		 if ((int)overlay_green_b > MAX_INT)
 		 {
-			 overlay_green_b = 255;
+			 overlay_green_b = MAX_INT;
 		 }
 		 else if ((int)overlay_green_b < 0)
 		 {
-			 overlay_green_b = 0;
+			 overlay_green_b = NONE;
 		 }
 
 		 //red layer
 		 overlay_red = (double)top.v_image.at(i).get_red();
-		 overlay_red = overlay_red / 255.0f;
+		 overlay_red = overlay_red / MAX_FLOAT;
 
 		 overlay_red_b = (double)bottom.v_image.at(i).get_red();
-		 overlay_red_b = overlay_red_b / 255.0f;
+		 overlay_red_b = overlay_red_b / MAX_FLOAT;
 
 		 if (overlay_red_b <= .5f)
 		 {
 			 overlay_red_b = 2 * overlay_red * overlay_red_b;
-			 overlay_red_b = overlay_red_b * 255.0f;
+			 overlay_red_b = overlay_red_b * MAX_FLOAT;
 			 overlay_red_b = overlay_red_b + .5f;
 		 }
 		 else if (overlay_red_b >= .5f)
@@ -588,18 +579,18 @@ void image::randomize_color()
 
 			 overlay_red_b = 1 - overlay_red_b;
 
-			 overlay_red_b = overlay_red_b * 255.0f;
+			 overlay_red_b = overlay_red_b * MAX_FLOAT;
 
 			 overlay_red_b = overlay_red_b + .5f;
 		 }
 
 		 if ((int)overlay_red_b > 255)
 		 {
-			 overlay_red_b = 255;
+			 overlay_red_b = MAX_INT;
 		 }
 		 else if ((int)overlay_red_b < 0)
 		 {
-			 overlay_red_b = 0;
+			 overlay_red_b = NONE;
 		 }
 		 bottom.v_image.at(i).set_blue((unsigned char)overlay_blue_b);
 		 bottom.v_image.at(i).set_green((unsigned char)overlay_green_b);
@@ -608,6 +599,68 @@ void image::randomize_color()
 
 
 	 return bottom;
+ }
+
+ void image::split_image(std::string name)
+ {
+	 std::string name_blue = name;
+	 std::string name_green = name;
+	 std::string name_red = name;
+
+	 pixel pixel_Data;
+
+	 name_blue.insert(name_blue.length()-4, "_b");
+	 name_green.insert(name_green.length() - 4, "_g");
+	 name_red.insert(name_red.length() - 4, "_r");
+	 header header_f;
+#undef WIDTH
+#define WIDTH this->width
+#undef HEIGHT
+#define HEIGHT this->height
+
+	 header_f = create_header(HEADER);
+	 image image_f;
+	 image_f = create_blank_file(header_f);
+
+	 image_f.clear();//clear the image for new data
+
+	 //set blue file
+	 for (unsigned int i = 0; i < this->width*this->height; i++)
+	 {
+		 pixel_Data.set_blue(this->v_image.at(i).get_blue());
+		 pixel_Data.set_green(this->v_image.at(i).get_blue());
+		 pixel_Data.set_red(this->v_image.at(i).get_blue());
+
+		 image_f.addpixel(pixel_Data);
+	 }
+	 write_with_name(name_blue, image_f);
+
+	 image_f.clear();
+	 //set green file
+	 for (unsigned int i = 0; i < this->width * this->height; i++)
+	 {
+		 pixel_Data.set_blue(this->v_image.at(i).get_green());
+		 pixel_Data.set_green(this->v_image.at(i).get_green());
+		 pixel_Data.set_red(this->v_image.at(i).get_green());
+
+
+		 image_f.addpixel(pixel_Data);
+	 }
+	 write_with_name(name_green, image_f);
+
+	 image_f.clear();
+	 //set red file
+	 for (unsigned int i = 0; i < this->width * this->height; i++)
+	 {
+		 pixel_Data.set_blue(this->v_image.at(i).get_red());
+		 pixel_Data.set_green(this->v_image.at(i).get_red());
+		 pixel_Data.set_red(this->v_image.at(i).get_red());
+
+
+		 image_f.addpixel(pixel_Data);
+	 }
+	 write_with_name(name_red, image_f);
+
  }
 
  void image::scale(unsigned int red_scale, unsigned int green_scale, unsigned int blue_scale)
@@ -621,17 +674,17 @@ void image::randomize_color()
 		 green = green_scale * this->v_image.at(i).get_green();
 		 blue = blue_scale * this->v_image.at(i).get_blue();
 
-		 if (red > 255.0f)
+		 if (red > MAX_FLOAT)
 		 {
-			 red = 255;
+			 red = MAX_INT;
 		 }
-		 if (green > 255.0f)
+		 if (green > MAX_FLOAT)
 		 {
-			 green = 255;
+			 green = MAX_INT;
 		 }
-		 if (blue > 255.0f)
+		 if (blue > MAX_FLOAT)
 		 {
-			 blue = 255;
+			 blue = MAX_INT;
 		 }
 		 this->v_image.at(i).set_red(red);
 		 this->v_image.at(i).set_green(green);
@@ -663,7 +716,7 @@ void image::randomize_color()
 
 		 if (blue + blue_ > 255)
 		 {
-			 blue = 255;
+			 blue = MAX_INT;
 		 }
 		 else
 		 {
@@ -671,7 +724,7 @@ void image::randomize_color()
 		 }
 		 if (green + green_ > 255)
 		 {
-			 green = 255;
+			 green = MAX_INT;
 		 }
 		 else
 		 {
@@ -679,7 +732,7 @@ void image::randomize_color()
 		 }
 		 if (red + red_ > 255)
 		 {
-			 red = 255;
+			 red = MAX_INT;
 		 }
 		 else
 		 {
@@ -712,7 +765,7 @@ void image::randomize_color()
 	 this->v_image.clear();
  }
 
- void image::create_blank_file(std::string name, header& header_f)
+ image image::create_blank_file(header& header_f)
  {
 	// enum COLOR {BLUE = 255, RED = 255, GREEN = 255};
 	 image image_f;
@@ -748,13 +801,53 @@ void image::randomize_color()
 	 for (unsigned int i = 0; i < (image_f.height)*(image_f.width); i++)
 	 {
 		 
-		 pixel_Data.set_blue(MAX);
-		 pixel_Data.set_green(MAX);
-		 pixel_Data.set_red(MAX);
+		 pixel_Data.set_blue(MAX_INT);
+		 pixel_Data.set_green(MAX_INT);
+		 pixel_Data.set_red(MAX_INT);
 		 
 		 image_f.addpixel(pixel_Data);
 	 }
 
-	 write_with_name(name, image_f);
+	 return image_f;
+ }
+
+ image image::combine(image& red, image& green, image& blue)
+ {
+	 header header_f;
+#undef WIDTH
+#define WIDTH red.width
+#undef HEIGHT
+#define HEIGHT red.height
+	 header_f = create_header(HEADER);
+	 image image_f;
+	 image_f = create_blank_file(header_f);
+	 
+	 for (unsigned int i = 0; i < red.getsize(); i++)
+	 {
+		 image_f.v_image.at(i).set_blue(blue.v_image.at(i).get_blue());
+		 image_f.v_image.at(i).set_green(green.v_image.at(i).get_green());
+		 image_f.v_image.at(i).set_red(red.v_image.at(i).get_red());
+	 }
+	 return image_f;
+ }
+
+ void image::flip()
+ {
+	 vector<unsigned char> blue_arr;
+	 vector<unsigned char> red_arr;
+	 vector<unsigned char> green_arr;
+
+	 for (int i = this->getsize()-1; i > -1; i--)
+	 {
+		 blue_arr.push_back(this->v_image.at(i).get_blue());
+		 green_arr.push_back(this->v_image.at(i).get_green());
+		 red_arr.push_back(this->v_image.at(i).get_red());
+	 }
+	 for (unsigned int i = 0; i < blue_arr.size(); i++)
+	 {
+		 this->v_image.at(i).set_blue(blue_arr.at(i));
+		 this->v_image.at(i).set_green(green_arr.at(i));
+		 this->v_image.at(i).set_red(red_arr.at(i));
+	 }
  }
 

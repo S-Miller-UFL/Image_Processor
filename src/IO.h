@@ -2,23 +2,20 @@
 #include "image.h"
 #include "test.h"
 #include <string>
-struct IO_READ
+
+struct IO_READ_WRITE
 {
 	void read_file(std::string name, image& image_f)
 	{
 		image_f.read_file(name, image_f);
 	}
-};
-
-struct IO_WRITE
-{
 	void write_file(std::string name, image& image_f)
 	{
 		image_f.write_with_name(name, image_f);
 	}
-	void create_file(std::string name, header& h)
+	image create_file(header& h)
 	{
-		i.create_blank_file(name, h);
+		 return i.create_blank_file(h);
 	}
 private:
 	image i;
@@ -34,36 +31,59 @@ struct IO_HEADER
 		char pixel_depth, char image_descriptor)
 
 	{
-		h = i.create_header(id_length, color_map_type, 
+		return i.create_header(id_length, color_map_type, 
 			image_type, color_map_origin, 
 			color_map_length, color_map_depth,
 			x_origin, y_origin,
 			width, height, 
 			pixel_depth, image_descriptor);
-
-		return h;
 	}
 
 private:
 	image i;
-	header h;
+};
+
+struct IO_BLEND
+{
+	image multiply(image& top, image& bottom)
+	{
+		return i.multiply(top, bottom);
+	}
+	image subtract(image& top, image& bottom)
+	{
+		return i.subtract(top, bottom);
+	}
+	image screen(image& top, image& bottom)
+	{
+		return i.screen(top, bottom);
+	}
+	image overlay(image& top, image& bottom)
+	{
+		return i.overlay(top, bottom);
+	}
+	image combine(image& red, image& green, image& blue)
+	{
+		return i.combine(red, green, blue);
+	}
+	void flip(image& image_f)
+	{
+		image_f.flip();
+	}
+	void set_color(unsigned char red, unsigned char green, unsigned char blue, image& image_f)
+	{
+		image_f.set_color(red, green, blue);
+	}
+private:
+	image i;
 };
 
 struct IO_TEST
 {
-	void compare(const image& h0, const image& h1)
+	bool compare(const image& h0, const image& h1)
 	{
-		f = t.test_compare_images(h0,h1);
-		if (f == false)
-		{
-			std::cout << "false!" << std::endl;
-		}
-		else if(f == true)
-		{
-			std::cout << "true!" << std::endl;
-		}
+		return t.test_compare_images(h0,h1);
+		
 	}
 private:
 	test t;
-	bool f;
 };

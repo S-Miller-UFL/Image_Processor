@@ -42,18 +42,4 @@ void pixel::set_red(const unsigned char value)
 	this->red = value;
 }
 
-void pixel::add_blue(const unsigned char value)
-{
-	this->blue = this->blue + value;
-}
-
-void pixel::add_green(const unsigned char value)
-{
-	this->green = this->green + value;
-}
-
-void pixel::add_red(const unsigned char value)
-{
-	this->red = this->red + value;
-}
 

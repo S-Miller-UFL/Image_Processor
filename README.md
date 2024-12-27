@@ -6,9 +6,10 @@ at some point to clean it up.
 Nevertheless, I'll show you anyways.
 
 How to run:
-1.Clone this repo and open src/project_2.cpp
+1.Clone this repo and open the visual studio solution file given in this repository.
+2. Navigate to project_2.cpp
   youll notice in the main function that it calls a variety of functions to
-  perform image manipulation, scroll down to these functions and change hte name of the 
+  perform image manipulation, scroll down to these functions and change the name of the 
   files you want to read in.
   One of these lines is at line 313, the next is at line 314.
 
